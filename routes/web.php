@@ -29,6 +29,11 @@ use Illuminate\Support\Facades\Http;
 */
 
 
+// Redirect /public/assets to /assets for backward compatibility
+Route::get('/public/assets/{path}', function($path) {
+    return redirect('/assets/' . $path);
+})->where('path', '.*');
+
 Route::post('/subscribeToTopic', [FirebaseController::class, 'subscribeToTopic']);
 Route::get('/', 'HomeController@index')->name('home');
 Route::get('lang/{locale}', 'HomeController@lang')->name('lang');
